@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HP Tasbih App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <img src="img/logo.jpg" alt="HP Tasbih App Logo" class="logo" />
+    <h1>তাসবিহ অ্যাপ</h1>
+
+    <div class="counter">
+      <p>সুবহান আল্লাহ: <span id="subhanallah">0</span></p>
+      <button onclick="count('subhanallah')">সুবহান আল্লাহ বলো</button>
+    </div>
+
+    <div class="counter">
+      <p>আলহামদুলিল্লাহ: <span id="alhamdulillah">0</span></p>
+      <button onclick="count('alhamdulillah')">আলহামদুলিল্লাহ বলো</button>
+    </div>
+
+    <div class="counter">
+      <p>আল্লাহু আকবার: <span id="allahuakbar">0</span></p>
+      <button onclick="count('allahuakbar')">আল্লাহু আকবার বলো</button>
+    </div>
+
+    <button id="reset">সব রিসেট করো</button>
+
+    <footer>
+      <p>— Created by <span class="sig">Hriday Editz</span></p>
+    </footer>
+  </div>
+
+  <audio id="clickSound" src="sounds/click.mp3"></audio>
+  <script>
+    const limit = 33;
+    const counters = {
+      subhanallah: 0,
+      alhamdulillah: 0,
+      allahuakbar: 0
+    };
+
+    function vibrate() {
+      if (navigator.vibrate) navigator.vibrate(100);
+    }
+
+    function playSound() {
+      const sound = document.getElementById('clickSound');
+      sound.play();
+    }
+
+    function count(type) {
+      if (counters[type] < limit) {
+        counters[type]++;
+        document.getElementById(type).innerText = counters[type];
+        vibrate();
+        playSound();
+      }
+    }
+
+    document.getElementById("reset").onclick = () => {
+      for (let key in counters) {
+        counters[key] = 0;
+        document.getElementById(key).innerText = 0;
+      }
+    };
+  </script>
+</body>
+</html>
